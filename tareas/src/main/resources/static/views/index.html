@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Main Page</title>
+</head>
+<body data-ng-app="tasks">
+<hr/>
+<div class="container" ng-controller="TaskController">
+    <div class="top">
+        <div class="logoContainer">
+            <img class="logo" src="../img/taskManager-logo.png">
+        </div>
+        <div class="row">
+            <label for="tarea">{{taskLabels.taskName}} : </label> <input id="tarea" type="text" data-ng-model="taskDto.description" class="input-sm spacing"/>
+            <label>{{taskLabels.status}}</label>
+            <select id="selectGuardar" data-ng-model="taskDto.status">
+                <option ng-repeat="s in statusList" value="{{s.id}}">{{s.description}}</option>
+            </select>
+            <button data-ng-click="saveTask()" class="btn btn-sm btn-info buttonSave">
+                {{taskLabels.taskSave}}
+            </button>
+        </div>
+    </div>
+    <hr/>
+    <div id="messageDiv">
+
+    </div>
+    <hr/>
+
+    <table class="greyGridTable">
+        <tr class="tableHeader">
+            <th>{{taskLabels.taskName}}</th>
+            <th>{{taskLabels.status}}</th>
+        </tr>
+        <tr id="{{task.id}}" ng-repeat="task in allTasks" ng-class="{'finishedTask': task.status == 2}" >
+            <td>
+                <input id="input#{{task.id}}"  type="text" data-ng-model="task.description" />
+            </td>
+            <td>
+                <select id="select#{{task.id}}">
+                    <option ng-repeat="s in statusList" data-ng-selected="{{s.id == task.status}}"
+                            value="{{s.id}}"
+                            >{{s.description}}</option>
+                </select>
+            </td>
+            <td>
+                <button data-ng-click="updateTask(task)" class="btn btn-primary">
+                    <img src="../img/guardar.png" alt="submit" />
+                </button>
+                <button data-ng-click="deleteTask(task.id)" class="btn btn-danger">
+                    <img src="../img/borrar.png" alt="submit" />
+                </button>
+            </td>
+        </tr>
+    </table>
+
+</div>
+</body>
+<script src="../labels/labels.js"></script>
+<script src="../js/lib/angular.min.js"></script>
+<script src="../js/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
+<script src="../js/app/app.js"></script>
+<script src="../js/app/TaskController.js"></script>
+<script src="../js/app/TaskService.js"></script>
+<link rel="stylesheet" href="../css/lib/bootstrap.min.css"/>
+<link rel="stylesheet" href="../css/app/app.css"/>
+
+</html>
